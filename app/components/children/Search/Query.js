@@ -7,6 +7,8 @@ var Query = React.createClass({
   // Here we set a generic state associated with the text being searched for
   getInitialState: function() {
     return { term: "" };
+    return { begDate: "" };
+    return { endDate: "" };
   },
 
   // This function will respond to the user input
@@ -24,10 +26,10 @@ var Query = React.createClass({
     // preventing the form from trying to submit itself
     event.preventDefault();
     // Set the parent to have the search term
-    this.props.setTerm(this.state.term);
+    this.props.setTerm(this.state.term, this.state.begDate, this.state.endDate);
 
     // Clearing the input field after submitting
-    this.setState({ term: "" });
+    this.setState({ term: "",});
   },
 
   // Here we describe this component's render method
@@ -42,7 +44,7 @@ var Query = React.createClass({
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <h4 className="">
-                <strong>Article Results</strong>
+                <strong>Results</strong>
               </h4>
 
               {/*
@@ -57,6 +59,30 @@ var Query = React.createClass({
                 id="term"
                 onChange={this.handleChange}
                 required
+              />
+              <br />
+            <h4 className="">
+              <strong>Begin Date</strong>
+            </h4>
+               <input
+                type="text"
+                // value={this.state.term}
+                className="form-control text-center"
+                id="begDate"
+                onChange={this.handleChange}
+                // required
+              />
+              <br />
+                <h4 className="">
+                <strong>End Date</strong>
+              </h4>
+               <input
+                type="text"
+                // value={this.state.term}
+                className="form-control text-center"
+                id="endDate"
+                onChange={this.handleChange}
+                // required
               />
               <br />
               <button
