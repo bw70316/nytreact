@@ -16,7 +16,10 @@ var Main = React.createClass({
   // Here we set a generic state associated with the number of clicks
   // Note how we added in this history state variable
   getInitialState: function() {
-    return { searchTerm: "", results: "" };
+    return { searchTerm: "", results: [],
+    title: "",
+    begDate: "",
+    endDate: "" };
   },
 
  componentDidUpdate: function(prevProps, prevState) {
@@ -24,7 +27,7 @@ var Main = React.createClass({
     if (prevState.searchTerm !== this.state.searchTerm) {
       console.log("UPDATED");
 
-      helpers.runQuery(this.state.searchTerm).then(function(data) {
+      helpers.runQuery(this.state.title, this.state.begDate, this.state.endDate).then(function(data) {
         if (data !== this.state.results) {
           console.log(data);
           this.setState({ results: data });
@@ -34,6 +37,16 @@ var Main = React.createClass({
       }.bind(this));
     }
   },
+
+   getArticle: function () {
+    axios.get('/api/saved')
+      .then(function (response) {
+        this.setState({
+          savedArticles: response.data
+        });
+      }.bind(this));
+  },
+  
   setTerm: function(term) {
     this.setState({ searchTerm: term });
   },
